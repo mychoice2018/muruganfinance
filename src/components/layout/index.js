@@ -7,8 +7,10 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import BottomNavigation from '../bottomNavigation';
+import Drawer from '../drawer';
 
 export default function ButtonAppBar() {
+  const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -19,6 +21,7 @@ export default function ButtonAppBar() {
             color='inherit'
             aria-label='menu'
             sx={{ mr: 2 }}
+            onClick={() => setIsOpenDrawer(true)}
           >
             <MenuIcon />
           </IconButton>
@@ -28,6 +31,12 @@ export default function ButtonAppBar() {
           <Button color='inherit'>Login</Button>
         </Toolbar>
       </AppBar>
+      <Drawer
+        isOpenDrawer={isOpenDrawer}
+        toggleOpenDrawer={() => {
+          setIsOpenDrawer(false);
+        }}
+      />
       <BottomNavigation></BottomNavigation>
     </Box>
   );
