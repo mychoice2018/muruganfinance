@@ -13,7 +13,7 @@ export default function ButtonAppBar() {
   const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static'>
+      <AppBar position='static' className='customHeader'>
         <Toolbar>
           <IconButton
             size='large'
@@ -26,7 +26,7 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            News
+            Murugan Finance
           </Typography>
           <Button color='inherit'>Login</Button>
         </Toolbar>
