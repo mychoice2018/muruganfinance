@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import BottomNavigation from '../bottomNavigation';
 import Drawer from '../drawer';
 
-export default function ButtonAppBar() {
+export default function Layout(props) {
   const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -37,6 +37,7 @@ export default function ButtonAppBar() {
           setIsOpenDrawer(false);
         }}
       />
+      {props.children}
       <BottomNavigation></BottomNavigation>
     </Box>
   );

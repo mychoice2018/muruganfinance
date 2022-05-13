@@ -3,6 +3,7 @@ import './App.css';
 import { Routes, Route, Link } from 'react-router-dom';
 import './styles/index.scss';
 import Home from './pages/home';
+import Customers from './pages/customers';
 import Login from './pages/login';
 import Layout from './components/layout';
 
@@ -15,6 +16,14 @@ function App() {
           element={
             <Layout>
               <Home />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path='/customers'
+          element={
+            <Layout>
+              <Customers />
             </Layout>
           }
         ></Route>
