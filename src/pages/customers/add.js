@@ -26,21 +26,20 @@ export default function Add() {
     // }).then((response) => {
     //   console.log(response.json());
     // });
-    // data.append('image', e.target.files[0]);
-    // data.append('key', 'e0d83879e1ad6f632ffe14ace9a49327');
-    // data.append('name ', 'financier-customers');
-    // fetch('https://api.imgbb.com/1/upload', {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    //   body: data,
-    // }).then((response) => {
-    //   console.log(response.json());
-    // });
-    imageKitId = 'u2vyzskia'
+    data.append('image', e.target.files[0]);
+    data.append('key', 'e0d83879e1ad6f632ffe14ace9a49327');
+    data.append('name ', 'financier-customers');
+    fetch('https://api.imgbb.com/1/upload', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: data,
+    }).then((response) => {
+      console.log(response.json());
+    });
   };
   return (
     <div style={{ margin: '10px' }}>
