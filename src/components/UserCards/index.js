@@ -4,12 +4,18 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function UsrCards(props) {
   const { customer } = props;
+  let navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 345 }} className='custom-usercard'>
-      <CardActionArea>
+      <CardActionArea
+        onClick={() => {
+          navigate(`/customer/${customer.id}`);
+        }}
+      >
         <CardMedia
           component='img'
           height='140'

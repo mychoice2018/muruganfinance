@@ -38,7 +38,7 @@ export default function Layout(props) {
         }}
       />
       {props.children}
-      <BottomNavigation></BottomNavigation>
+      {/* <BottomNavigation></BottomNavigation> */}
     </Box>
   );
 }
