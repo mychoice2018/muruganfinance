@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -6,66 +6,21 @@ import UserCards from '../../components/UserCards';
 import { useNavigate } from 'react-router-dom';
 import { Typography, TextField } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-const allCustomerList = [
-  {
-    id: 1,
-    name: 'Vinayaga',
-    mobile: '999999999',
-    img: '',
-  },
-  {
-    id: 2,
-    name: 'Muruga',
-    mobile: '88888888',
-    img: '',
-  },
-  {
-    id: 3,
-    name: 'Vetri',
-    mobile: '7777777',
-    img: '',
-  },
-  {
-    id: 4,
-    name: 'Vinayaga',
-    mobile: '999999999',
-    img: '',
-  },
-  {
-    id: 5,
-    name: 'Muruga',
-    mobile: '88888888',
-    img: '',
-  },
-  {
-    id: 6,
-    name: 'Vetri',
-    mobile: '7777777',
-    img: '',
-  },
-  {
-    id: 7,
-    name: 'Vinayaga',
-    mobile: '999999999',
-    img: '',
-  },
-  {
-    id: 8,
-    name: 'Muruga',
-    mobile: '88888888',
-    img: '',
-  },
-  {
-    id: 9,
-    name: 'Vetri',
-    mobile: '7777777',
-    img: '',
-  },
-];
+import { getCustomers } from '../../services/customer-service';
+
 const Customers = () => {
   let navigate = useNavigate();
   const [searchKey, setSearchkey] = useState('');
-  const [customerList, setCustomerList] = useState(allCustomerList);
+  const [customerList, setCustomerList] = useState();
+  const [allCustomerList, setAllCustomerList] = useState();
+
+  useEffect(() => {
+    getCustomers().then((response) => {
+      console.log(response);
+      setAllCustomerList([...response.data]);
+      setCustomerList([...response.data]);
+    });
+  }, []);
 
   const handleChange = (e) => {
     setSearchkey(e.target.value);
@@ -123,13 +78,14 @@ const Customers = () => {
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           sx={{ margin: '10px' }}
         >
-          {customerList.map((customer, index) => {
-            return (
-              <Grid item xs={6} sm={4} md={2}>
-                <UserCards customer={customer} />
-              </Grid>
-            );
-          })}
+          {customerList &&
+            customerList.map((customer, index) => {
+              return (
+                <Grid item xs={6} sm={4} md={2}>
+                  <UserCards customer={customer} />
+                </Grid>
+              );
+            })}
         </Grid>
       </Box>
     </div>

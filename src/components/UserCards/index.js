@@ -13,14 +13,17 @@ export default function UsrCards(props) {
     <Card sx={{ maxWidth: 345 }} className='custom-usercard'>
       <CardActionArea
         onClick={() => {
-          navigate(`/customer/${customer.id}`);
+          navigate(`/customer/${customer._id}`);
         }}
       >
         <CardMedia
           component='img'
           height='140'
-          image='https://sriit.ac.in/tool/plugins/images/users/4.jpg'
+          image={
+            customer.gender === 'F' ? '../img/female.png' : '../img/male.png'
+          }
           alt='green iguana'
+          sx={{ display: 'inline', width: '75%' }}
         />
         <CardContent sx={{ padding: '5px' }}>
           <Typography

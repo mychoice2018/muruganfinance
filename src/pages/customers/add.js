@@ -4,41 +4,24 @@ import { Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { UploadFile } from '@mui/icons-material';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import { saveCustomer } from '../../services/customer-service';
 
 export default function Add() {
   let navigate = useNavigate();
   const [formValues, setFormValues] = React.useState({});
   const [selectedImg, setSelectedImg] = React.useState('');
-  const UploadFile = (e) => {
-    const data = new FormData();
-    // data.append('source', e.target.files[0]);
-    // data.append('key', '6d207e02198a847aa98d0a2a901485a5');
-    // data.append('format', 'json');
-    // data.append('action', 'upload');
-    // fetch('https://freeimage.host/api/1/upload', {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Access-Control-Allow-Origin': '*',
-    //   },
-    //   body: data,
-    // }).then((response) => {
-    //   console.log(response.json());
-    // });
-    data.append('image', e.target.files[0]);
-    data.append('key', 'e0d83879e1ad6f632ffe14ace9a49327');
-    data.append('name ', 'financier-customers');
-    fetch('https://api.imgbb.com/1/upload', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data',
-      },
-      body: data,
-    }).then((response) => {
-      console.log(response.json());
+  const submitForm = () => {
+    console.log('formValues', formValues);
+    saveCustomer(formValues).then((response) => {
+      console.log(response);
     });
   };
   return (
@@ -111,7 +94,52 @@ export default function Add() {
             }}
           />
         </div>
-        <div className='flexRow allCenter'>
+        <div>
+          <RadioGroup
+            row
+            aria-labelledby='demo-row-radio-buttons-group-label'
+            name='row-radio-buttons-group'
+            className='allCenter'
+          >
+            <FormControlLabel
+              value='female'
+              control={<Radio />}
+              label='Female'
+              onClick={() => {
+                setFormValues({ ...formValues, gender: 'F' });
+              }}
+            />
+            <FormControlLabel
+              value='male'
+              control={<Radio />}
+              label='Male'
+              onClick={() => {
+                setFormValues({ ...formValues, gender: 'M' });
+              }}
+            />
+          </RadioGroup>
+        </div>
+        <div style={{ marginTop: '25px' }}>
+          <Button
+            className='button-submit-bg custom-button'
+            variant='contained'
+            startIcon={<CheckBoxIcon />}
+            sx={{ marginRight: '5px' }}
+            onClick={() => {
+              submitForm();
+            }}
+          >
+            Submit
+          </Button>
+          <Button
+            className='button-reset-bg custom-button'
+            variant='contained'
+            startIcon={<CancelOutlinedIcon />}
+          >
+            Reset
+          </Button>
+        </div>
+        {/* <div className='flexRow allCenter'>
           <label>
             {selectedImg === '' ? ' Add Picture' : 'Selected Picture'}
           </label>
@@ -152,7 +180,7 @@ export default function Add() {
               />
             )}
           </label>
-        </div>
+        </div> */}
       </Box>
     </div>
   );

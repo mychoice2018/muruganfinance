@@ -24,9 +24,15 @@
 
 .custom-button{
     height: 30px;
-    font-size: 10px !important;
-    font-weight: bold !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
 }
 .button-bg{
     background-image: linear-gradient(274deg, #054c71, #1174a8)
+}
+.button-submit-bg{
+    background-image: linear-gradient(274deg, #13bda4, #0db3b7)
+}
+.button-reset-bg{
+    background-image: linear-gradient(274deg, #d80c41, #920879)
 }
