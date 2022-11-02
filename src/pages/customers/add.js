@@ -18,10 +18,21 @@ export default function Add() {
   let navigate = useNavigate();
   const [formValues, setFormValues] = React.useState({});
   const [selectedImg, setSelectedImg] = React.useState('');
+
   const submitForm = () => {
     console.log('formValues', formValues);
     saveCustomer(formValues).then((response) => {
       console.log(response);
+    });
+  };
+
+  const resetForm = () => {
+    setFormValues({
+      name: '',
+      shopName: '',
+      gender: '',
+      address: '',
+      mobile: '',
     });
   };
   return (
@@ -50,7 +61,6 @@ export default function Add() {
           marginTop: '20px',
           '& .MuiTextField-root': { m: 1, width: '25ch' },
         }}
-        noValidate
         autoComplete='off'
       >
         <div>
@@ -59,6 +69,7 @@ export default function Add() {
             id='outlined-size-small'
             size='small'
             value={formValues.name}
+            required
             onChange={(e) => {
               setFormValues({ ...formValues, name: e.target.value });
             }}
@@ -135,6 +146,9 @@ export default function Add() {
             className='button-reset-bg custom-button'
             variant='contained'
             startIcon={<CancelOutlinedIcon />}
+            onClick={() => {
+              resetForm();
+            }}
           >
             Reset
           </Button>

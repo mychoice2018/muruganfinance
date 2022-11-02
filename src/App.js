@@ -5,6 +5,7 @@ import './styles/index.scss';
 import Home from './pages/home';
 import Customers from './pages/customers';
 import CustomerDetails from './pages/customer-details';
+import AddLoan from './pages/customer-details/addLoan';
 import AddCustomer from './pages/customers/add.js';
 import Login from './pages/login';
 import Layout from './components/layout';
@@ -52,6 +53,14 @@ function App() {
             element={
               <Layout>
                 <AddCustomer />
+              </Layout>
+            }
+          ></Route>
+          <Route
+            path='/addloan/:id'
+            element={
+              <Layout>
+                <AddLoan />
               </Layout>
             }
           ></Route>

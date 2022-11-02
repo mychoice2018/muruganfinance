@@ -14,3 +14,6 @@ export function getCustomer(id) {
 export function saveCustomer(data) {
   return axiosInstance.post('users', data, { headers: headers });
 }
+export function updateCustomer(data) {
+  return axiosInstance.put('users', data, { headers: headers });
+}

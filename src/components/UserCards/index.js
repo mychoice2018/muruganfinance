@@ -10,7 +10,10 @@ export default function UsrCards(props) {
   const { customer } = props;
   let navigate = useNavigate();
   return (
-    <Card sx={{ maxWidth: 345 }} className='custom-usercard'>
+    <Card
+      sx={{ maxWidth: 345, borderRadius: '20px' }}
+      className='custom-usercard'
+    >
       <CardActionArea
         onClick={() => {
           navigate(`/customer/${customer._id}`);
