@@ -7,19 +7,27 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, TextField } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { getCustomers } from '../../services/customer-service';
+import CardLoader from '../../components/Loader/CardLoader';
 
 const Customers = () => {
   let navigate = useNavigate();
   const [searchKey, setSearchkey] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [customerList, setCustomerList] = useState();
   const [allCustomerList, setAllCustomerList] = useState();
 
   useEffect(() => {
-    getCustomers().then((response) => {
-      console.log(response);
-      setAllCustomerList([...response.data]);
-      setCustomerList([...response.data]);
-    });
+    setIsLoading(true);
+    getCustomers()
+      .then((response) => {
+        console.log(response);
+        setIsLoading(false);
+        setAllCustomerList([...response.data]);
+        setCustomerList([...response.data]);
+      })
+      .catch((e) => {
+        console.log(e)
+      });
   }, []);
 
   const handleChange = (e) => {
@@ -28,7 +36,8 @@ const Customers = () => {
     tempList = tempList.filter(
       (tl) =>
         tl.name.toUpperCase().includes(e.target.value.toUpperCase()) ||
-        tl.mobile.includes(e.target.value)
+        tl.shopName.toUpperCase().includes(e.target.value.toUpperCase()) ||
+        String(tl.mobile).includes(e.target.value)
     );
     setCustomerList([...tempList]);
   };
@@ -78,14 +87,18 @@ const Customers = () => {
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           sx={{ margin: '10px' }}
         >
-          {customerList &&
+          {isLoading ? (
+            <CardLoader />
+          ) : (
+            customerList &&
             customerList.map((customer, index) => {
               return (
                 <Grid item xs={6} sm={4} md={2}>
                   <UserCards customer={customer} />
                 </Grid>
               );
-            })}
+            })
+          )}
         </Grid>
       </Box>
     </div>

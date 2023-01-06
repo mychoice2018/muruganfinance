@@ -19,6 +19,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { DataGrid } from '@mui/x-data-grid';
 import UserProfile from '../../components/UserProfile';
 import ScheduleDialog from '../../components/dialog/schedule';
+import TableLoader from '../../components/Loader/TableLoader';
 
 import { getLoan, updateLoan } from '../../services/loan-service';
 
@@ -29,15 +30,19 @@ const CustomerDetails = () => {
   const [customer, setCustomer] = useState([]);
   const [selectedLoan, setSelectedLoan] = useState([]);
   const [loans, setLoans] = useState([]);
+  const [isLoansLoading, setIsLoansLoading] = useState(false);
   const [editable, setEditable] = useState(false);
   const [openSchedule, setOpenSchedule] = useState(false);
   useEffect(() => {
+    setIsLoansLoading(true);
     getLoan(id).then((response) => {
       console.log('loanUseEffect', response);
       let tempLoans = JSON.parse(JSON.stringify(response.data));
       tempLoans.forEach((tempLoan, index) => {
         tempLoan.id = index + 1;
       });
+
+      setIsLoansLoading(false);
       setLoans(tempLoans);
     });
   }, []);
@@ -142,77 +147,81 @@ const CustomerDetails = () => {
             borderRadius: 5,
           }}
         >
-          <DataGrid
-            columns={[
-              {
-                headerName: '#',
-                field: 'id',
-                headerClassName: 'datagrid-header',
-                headerAlign: 'center',
-                align: 'center',
-              },
-              {
-                headerName: 'Term',
-                field: 'repayIn',
-                headerClassName: 'datagrid-header',
-                headerAlign: 'center',
-                align: 'center',
-                valueGetter: getTermName,
-              },
-              {
-                headerName: 'Due',
-                field: 'due',
-                headerClassName: 'datagrid-header',
-                headerAlign: 'center',
-                align: 'center',
-              },
-              {
-                headerName: 'Start Date',
-                field: 'startDate',
-                headerClassName: 'datagrid-header',
-                headerAlign: 'center',
-                align: 'center',
-                width: 150,
-              },
-              {
-                headerName: 'Amount',
-                field: 'amount',
-                headerClassName: 'datagrid-header',
-                headerAlign: 'center',
-                align: 'center',
-              },
-              {
-                headerName: 'Actions',
-                headerClassName: 'datagrid-header',
-                headerAlign: 'center',
-                align: 'center',
-                width: 180,
-                renderCell: (params) => {
-                  return (
-                    <Button
-                      className='button-bg custom-button'
-                      variant='contained'
-                      sx={{ fontSize: '10px' }}
-                      onClick={() => {
-                        setSelectedLoan(params.row);
-                        setOpenSchedule(true);
-                      }}
-                    >
-                      View Schedules
-                    </Button>
-                  );
+          {isLoansLoading ? (
+            <TableLoader />
+          ) : (
+            <DataGrid
+              columns={[
+                {
+                  headerName: '#',
+                  field: 'id',
+                  headerClassName: 'datagrid-header',
+                  headerAlign: 'center',
+                  align: 'center',
                 },
-              },
-            ]}
-            rows={loans}
-            sx={{
-              minHeight: '300px',
-              maxHeight: '300px',
-              background: '#fff',
-              borderRadius: 5,
-              padding: '15px',
-            }}
-          />
+                {
+                  headerName: 'Term',
+                  field: 'repayIn',
+                  headerClassName: 'datagrid-header',
+                  headerAlign: 'center',
+                  align: 'center',
+                  valueGetter: getTermName,
+                },
+                {
+                  headerName: 'Due',
+                  field: 'due',
+                  headerClassName: 'datagrid-header',
+                  headerAlign: 'center',
+                  align: 'center',
+                },
+                {
+                  headerName: 'Start Date',
+                  field: 'startDate',
+                  headerClassName: 'datagrid-header',
+                  headerAlign: 'center',
+                  align: 'center',
+                  width: 150,
+                },
+                {
+                  headerName: 'Amount',
+                  field: 'amount',
+                  headerClassName: 'datagrid-header',
+                  headerAlign: 'center',
+                  align: 'center',
+                },
+                {
+                  headerName: 'Actions',
+                  headerClassName: 'datagrid-header',
+                  headerAlign: 'center',
+                  align: 'center',
+                  width: 180,
+                  renderCell: (params) => {
+                    return (
+                      <Button
+                        className='button-bg custom-button'
+                        variant='contained'
+                        sx={{ fontSize: '10px' }}
+                        onClick={() => {
+                          setSelectedLoan(params.row);
+                          setOpenSchedule(true);
+                        }}
+                      >
+                        View Schedules
+                      </Button>
+                    );
+                  },
+                },
+              ]}
+              rows={loans}
+              sx={{
+                minHeight: '300px',
+                maxHeight: '300px',
+                background: '#fff',
+                borderRadius: 5,
+                padding: '15px',
+              }}
+            />
+          )}
         </Paper>
       </Grid>
       <ScheduleDialog

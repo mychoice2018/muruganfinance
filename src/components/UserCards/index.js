@@ -4,6 +4,11 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from 'react-router-dom';
 
 export default function UsrCards(props) {
@@ -11,7 +16,7 @@ export default function UsrCards(props) {
   let navigate = useNavigate();
   return (
     <Card
-      sx={{ maxWidth: 345, borderRadius: '20px' }}
+      sx={{ maxWidth: 200, borderRadius: '20px' }}
       className='custom-usercard'
     >
       <CardActionArea
@@ -26,24 +31,77 @@ export default function UsrCards(props) {
             customer.gender === 'F' ? '../img/female.png' : '../img/male.png'
           }
           alt='green iguana'
-          sx={{ display: 'inline', width: '75%' }}
+          sx={{ display: 'inline', width: '60%', objectFit: 'contain' }}
         />
-        <CardContent sx={{ padding: '5px' }}>
-          <Typography
-            gutterBottom
-            variant='h5'
-            component='div'
-            sx={{ fontSize: '1em', fontWeight: 600 }}
-          >
-            {customer.name}
-          </Typography>
-          <Typography
-            variant='body2'
-            color='text.secondary'
-            sx={{ fontSize: '0.875em' }}
-          >
-            {customer.mobile}
-          </Typography>
+        <CardContent sx={{ padding: '5px', background: '#f4f9ff' }}>
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Typography
+                    gutterBottom
+                    variant='h5'
+                    component='div'
+                    sx={{ fontSize: '1em', fontWeight: 600 }}
+                  >
+                    Name {':'}
+                  </Typography>
+                </ListItemIcon>
+                <Typography
+                  gutterBottom
+                  variant='h5'
+                  component='div'
+                  sx={{ fontSize: '1em', fontWeight: 600 }}
+                >
+                  {customer.name}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Typography
+                    gutterBottom
+                    variant='h5'
+                    component='div'
+                    sx={{ fontSize: '1em', fontWeight: 600 }}
+                  >
+                    Shop Name {':'}
+                  </Typography>
+                </ListItemIcon>
+                <Typography
+                  gutterBottom
+                  variant='h5'
+                  component='div'
+                  sx={{ fontSize: '1em', fontWeight: 600 }}
+                >
+                  {customer.shopName}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Typography
+                    gutterBottom
+                    variant='h5'
+                    component='div'
+                    sx={{ fontSize: '1em', fontWeight: 600 }}
+                  >
+                    Mobile {':'}
+                  </Typography>
+                </ListItemIcon>
+                <Typography
+                  gutterBottom
+                  variant='h5'
+                  component='div'
+                  sx={{ fontSize: '1em', fontWeight: 600 }}
+                >
+                  {customer.mobile}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </List>
         </CardContent>
       </CardActionArea>
     </Card>

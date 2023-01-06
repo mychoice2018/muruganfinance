@@ -1,0 +1,9 @@
+Home page design
+Customers design (Loading,card size,search functionality)
+Add customer (Api success , error & loading)
+Loan (Loading, )
+View schedules (Close icon, )
+
+
+
+

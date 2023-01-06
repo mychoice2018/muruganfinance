@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import { Typography, TextField, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -17,12 +18,21 @@ import { saveCustomer } from '../../services/customer-service';
 export default function Add() {
   let navigate = useNavigate();
   const [formValues, setFormValues] = React.useState({});
+  const [formStatus, setFormStatus] = React.useState('');
   const [selectedImg, setSelectedImg] = React.useState('');
 
   const submitForm = () => {
     console.log('formValues', formValues);
     saveCustomer(formValues).then((response) => {
-      console.log(response);
+      console.log('Addcustomer ----', response);
+      if (
+        response &&
+        response.data &&
+        response.data.name &&
+        response.data._id
+      ) {
+        setFormStatus('success');
+      }
     });
   };
 
@@ -136,6 +146,7 @@ export default function Add() {
             variant='contained'
             startIcon={<CheckBoxIcon />}
             sx={{ marginRight: '5px' }}
+            disabled={!formValues.name}
             onClick={() => {
               submitForm();
             }}
@@ -195,6 +206,17 @@ export default function Add() {
             )}
           </label>
         </div> */}
+
+        {formStatus === 'success' && (
+          <Alert severity='success'>
+            This is a success alert — check it out!
+          </Alert>
+        )}
+        {formStatus === 'error' && (
+          <Alert severity='success'>
+            This is a success alert — check it out!
+          </Alert>
+        )}
       </Box>
     </div>
   );
