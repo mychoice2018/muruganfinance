@@ -12,23 +12,22 @@ import Drawer from '../drawer';
 export default function Layout(props) {
   const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static' className='customHeader'>
+    <Box sx={{flexGrow: 1}}>
+      <AppBar position="static" className="customHeader">
         <Toolbar>
           <IconButton
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='menu'
-            sx={{ mr: 2 }}
-            onClick={() => setIsOpenDrawer(true)}
-          >
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{mr: 2}}
+            onClick={() => setIsOpenDrawer(true)}>
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
             Murugan Finance
           </Typography>
-          <Button color='inherit'>Login</Button>
+          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -38,7 +37,7 @@ export default function Layout(props) {
         }}
       />
       {props.children}
-      {/* <BottomNavigation></BottomNavigation> */}
+      <BottomNavigation></BottomNavigation>
     </Box>
   );
 }
